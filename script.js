@@ -17,7 +17,7 @@
    CONFIG
    ============================================================ */
 
-const GOOGLE_FORM_URL = "PASTE_GOOGLE_FORM_URL_HERE";
+const GOOGLE_FORM_URL = "https://forms.gle/6Lrsm7VH9mXsXCHw9";
 
 /* ============================================================
    1. REGISTRATION BUTTON
@@ -40,9 +40,9 @@ if (registerBtn) {
    2. NAVBAR HAMBURGER
    ============================================================ */
 
-const hamburgerBtn  = document.getElementById('hamburger-btn');
-const mobileMenu    = document.getElementById('mobile-menu');
-const mobileLinks   = mobileMenu ? mobileMenu.querySelectorAll('.navbar__mobile-link') : [];
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('.navbar__mobile-link') : [];
 
 function toggleMobileMenu() {
   if (!hamburgerBtn || !mobileMenu) return;
@@ -94,16 +94,16 @@ window.addEventListener('resize', () => {
    ============================================================ */
 
 (function initCarousel() {
-  const carousel   = document.getElementById('learn-carousel');
-  const cards      = document.getElementById('learn-cards');
-  const prevBtn    = document.getElementById('carousel-prev');
-  const nextBtn    = document.getElementById('carousel-next');
-  const dotsWrap   = document.getElementById('carousel-dots');
+  const carousel = document.getElementById('learn-carousel');
+  const cards = document.getElementById('learn-cards');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  const dotsWrap = document.getElementById('carousel-dots');
 
   if (!carousel || !cards || !prevBtn || !nextBtn || !dotsWrap) return;
 
-  const cardEls     = Array.from(cards.querySelectorAll('.learn__card'));
-  const totalCards  = cardEls.length;
+  const cardEls = Array.from(cards.querySelectorAll('.learn__card'));
+  const totalCards = cardEls.length;
 
   // Determine visible cards based on viewport
   function getVisibleCount() {
@@ -142,7 +142,7 @@ window.addEventListener('resize', () => {
     const maxIndex = totalCards - visibleCount;
     currentIndex = Math.max(0, Math.min(index, maxIndex));
 
-    const cardEl   = cardEls[currentIndex];
+    const cardEl = cardEls[currentIndex];
     const scrollLeft = cardEl.offsetLeft - cards.parentElement.offsetLeft - 4;
 
     carousel.scrollTo({ left: scrollLeft, behavior: 'smooth' });
@@ -160,11 +160,11 @@ window.addEventListener('resize', () => {
   carousel.addEventListener('scroll', () => {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
-      const scrollLeft    = carousel.scrollLeft;
-      const cardWidth     = cardEls[0].offsetWidth + 20; // gap: 20px
-      const newIndex      = Math.round(scrollLeft / cardWidth);
-      const visibleCount  = getVisibleCount();
-      const maxIndex      = totalCards - visibleCount;
+      const scrollLeft = carousel.scrollLeft;
+      const cardWidth = cardEls[0].offsetWidth + 20; // gap: 20px
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      const visibleCount = getVisibleCount();
+      const maxIndex = totalCards - visibleCount;
 
       currentIndex = Math.max(0, Math.min(newIndex, maxIndex));
       updateDots(currentIndex);
@@ -174,13 +174,13 @@ window.addEventListener('resize', () => {
   });
 
   // Drag to scroll (mouse)
-  let isDown     = false;
-  let startX     = 0;
+  let isDown = false;
+  let startX = 0;
   let scrollStart = 0;
 
   carousel.addEventListener('mousedown', (e) => {
-    isDown      = true;
-    startX      = e.pageX - carousel.offsetLeft;
+    isDown = true;
+    startX = e.pageX - carousel.offsetLeft;
     scrollStart = carousel.scrollLeft;
     carousel.classList.add('dragging');
   });
@@ -190,22 +190,22 @@ window.addEventListener('resize', () => {
     isDown = false;
     carousel.classList.remove('dragging');
     // Snap to nearest after drag
-    const cardWidth    = cardEls[0].offsetWidth + 20;
-    const newIndex     = Math.round(carousel.scrollLeft / cardWidth);
+    const cardWidth = cardEls[0].offsetWidth + 20;
+    const newIndex = Math.round(carousel.scrollLeft / cardWidth);
     scrollToIndex(newIndex);
   });
 
   document.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
-    const x          = e.pageX - carousel.offsetLeft;
-    const walk       = (x - startX) * 1.2;
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 1.2;
     carousel.scrollLeft = scrollStart - walk;
   });
 
   // Keyboard navigation
   carousel.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft')  scrollToIndex(currentIndex - 1);
+    if (e.key === 'ArrowLeft') scrollToIndex(currentIndex - 1);
     if (e.key === 'ArrowRight') scrollToIndex(currentIndex + 1);
   });
 
@@ -255,8 +255,8 @@ window.addEventListener('resize', () => {
    ============================================================ */
 
 (function initNavHighlight() {
-  const navLinks  = document.querySelectorAll('.navbar__link');
-  const sections  = Array.from(navLinks)
+  const navLinks = document.querySelectorAll('.navbar__link');
+  const sections = Array.from(navLinks)
     .map(link => {
       const href = link.getAttribute('href');
       return href ? document.querySelector(href) : null;
@@ -330,14 +330,14 @@ window.addEventListener('resize', () => {
    ============================================================ */
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const targetId  = this.getAttribute('href');
-    const target    = document.querySelector(targetId);
+  anchor.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href');
+    const target = document.querySelector(targetId);
     if (!target) return;
 
     e.preventDefault();
     const navHeight = document.querySelector('.navbar')?.offsetHeight || 68;
-    const top       = target.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 8;
 
     window.scrollTo({ top, behavior: 'smooth' });
   });
