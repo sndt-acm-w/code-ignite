@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Code Ignite — A beginner-friendly hands-on session for freshmen girls at SNDT UMIT. Explore GitHub, VS Code, HTML, CSS, and JavaScript. Organised by ACM-W SNDT UMIT Student Chapter." />
+  <meta name="keywords"
+    content="ACM-W, SNDT UMIT, Code Ignite, freshmen, girls, coding, HTML, CSS, JavaScript, GitHub, VS Code" />
+  <meta property="og:title" content="Code Ignite — ACM-W SNDT UMIT" />
+  <meta property="og:description"
+    content="Your first fun introduction to tech. Build your first webpage, meet girls who love creating with tech." />
+  <meta property="og:type" content="website" />
+  <title>Code Ignite — SNDT ACM -W Student Chapter</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Space+Mono:wght@700&display=swap"
+    rel="stylesheet">
+  <script>
+    // Runs before paint so returning visitors never see a flash of the intro.
+    if (localStorage.getItem("acmwIntroSeen") === "true" && !/intro=replay/.test(location.search)) {
+      document.documentElement.classList.add("intro-seen");
+    }
+  </script>
+  <link rel="stylesheet" href="intro-puzzle.css" />
+
+</head>
+
+<body>
+  <div id="intro" role="dialog" aria-label="Code Ignite intro. Press Enter to ignite, Escape to skip.">
+    <div id="cur"></div>
+    <div id="glow"></div>
+    <div id="pitch">
+      <h1>THERE'S SOMETHING<br>WAITING TO BE <em>BUILT.</em></h1>
+      <p>SNDT ACM -W STUDENT CHAPTER</p>
+      <button id="ignite" type="button">[ IGNITE ✦ ]</button>
+    </div>
+    <div id="title" aria-hidden="true">
+      <span class="star" style="left:-9%;top:-5%;font-size:2rem">✦</span>
+      <span class="star" style="right:-7%;top:14%;font-size:1.2rem;animation-delay:.5s">✦</span>
+      <span class="star" style="left:3%;bottom:-5%;font-size:1.4rem;animation-delay:1s">✧</span>
+      <b>CODE</b><b>IGNITE</b>
+      <p>SNDT ACM -W STUDENT CHAPTER</p>
+    </div>
+  </div>
+
+  <button id="replay" type="button">Replay Intro (dev)</button>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar__inner">
+
+      <!-- Brand -->
+      <a href="#home" class="navbar__brand" aria-label="ACM-W SNDT UMIT home">
+        <!-- ACM-W Logo -->
+        <img class="navbar__logo" src="assets/logos/acmw-logo-transparent.png"
+          alt="ACM-W SNDT UMIT Student Chapter logo" width="44" height="44" />
+        <div class="navbar__wordmark">
+          <span class="navbar__wordmark-top">ACM-W</span>
+          <span class="navbar__wordmark-sub">SNDT UMIT · Student Chapter</span>
+        </div>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="navbar__nav" role="list">
+        <a href="#home" class="navbar__link" role="listitem">Home</a>
+        <a href="#learn" class="navbar__link" role="listitem">What You'll Learn</a>
+        <a href="#contact" class="navbar__link" role="listitem">Contact</a>
+        <span class="navbar__pill" aria-label="For freshmen girlies">For Freshmen Girlies ✦</span>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="navbar__hamburger" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false"
+        aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="navbar__mobile-menu" id="mobile-menu" role="menu" aria-hidden="true">
+      <a href="#home" class="navbar__mobile-link" role="menuitem">Home</a>
+      <a href="#learn" class="navbar__mobile-link" role="menuitem">What You'll Learn</a>
+      <a href="#journey" class="navbar__mobile-link" role="menuitem">Event Journey</a>
+      <a href="#contact" class="navbar__mobile-link" role="menuitem">Contact</a>
+      <span class="navbar__mobile-pill">For Freshmen Girlies ✦</span>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="home" aria-label="Hero section">
+    <!-- Background -->
+    <div class="hero__bg-shapes" aria-hidden="true">
+      <div class="hero__bg-dot-grid"></div>
+      <div class="hero__bg-blob"></div>
+      <div class="hero__bg-circle-1"></div>
+      <div class="hero__bg-circle-2"></div>
+    </div>
+
+    <div class="hero__inner">
+      <!-- Left: Content -->
+      <div class="hero__content">
+        <div class="hero__eyebrow">
+          <span class="hero__eyebrow-line" aria-hidden="true"></span>
+          ACM-W × SNDT UMIT
+        </div>
+
+        <h1 class="hero__headline" aria-label="Code. Explore. Belong.">
+          <span class="hero__headline-line hero__headline-line--white">CODE.</span>
+          <span class="hero__headline-line hero__headline-line--cyan">EXPLORE.</span>
+          <span class="hero__headline-line hero__headline-line--outline">BELONG.</span>
+        </h1>
+
+        <p class="hero__desc">
+          A beginner-friendly hands-on session for freshmen girls to explore
+          the tools behind the web, build their first webpage and meet other
+          girls who love creating with tech.
+        </p>
+
+        <div class="hero__tags" role="list" aria-label="Event attributes">
+          <span class="hero__tag" role="listitem">✦ Beginner Friendly</span>
+          <span class="hero__tag" role="listitem">⚡ Hands-On</span>
+          <span class="hero__tag" role="listitem">♀ All Girls</span>
+          <span class="hero__tag" role="listitem">★ No Prior Exp Needed</span>
+        </div>
+      </div>
+
+      <!-- Right: Illustration -->
+      <div class="hero__illustration" aria-hidden="true">
+
+        <!-- Stars -->
+        <div class="hero__star-1">✦</div>
+        <div class="hero__star-2">✦</div>
+
+        <!-- GitHub badge -->
+        <div class="hero__github-badge">
+          <svg class="hero__github-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z" />
+          </svg>
+          <span class="hero__github-label">GitHub</span>
+        </div>
+
+        <!-- Floating tech tags -->
+        <div class="hero__floating-tag hero__floating-tag--html">&lt;HTML /&gt;</div>
+        <div class="hero__floating-tag hero__floating-tag--css">{ CSS }</div>
+        <div class="hero__floating-tag hero__floating-tag--js">JS ƒ()</div>
+
+        <!-- Mini browser doodle -->
+        <div class="hero__doodle hero__doodle--browser">
+          <div class="hero__doodle-browser-bar">
+            <div class="hero__doodle-browser-dot"></div>
+            <div class="hero__doodle-browser-dot"></div>
+            <div class="hero__doodle-browser-dot"></div>
+            <div class="hero__doodle-browser-url"></div>
+          </div>
+          <div class="hero__doodle-browser-lines">
+            <div class="hero__doodle-browser-line" style="width:80%"></div>
+            <div class="hero__doodle-browser-line" style="width:60%"></div>
+            <div class="hero__doodle-browser-line" style="width:90%"></div>
+            <div class="hero__doodle-browser-line" style="width:50%"></div>
+          </div>
+        </div>
+
+        <!-- Main code window -->
+        <div class="hero__code-window">
+          <div class="hero__code-window-bar">
+            <div class="hero__code-dot hero__code-dot--red"></div>
+            <div class="hero__code-dot hero__code-dot--yellow"></div>
+            <div class="hero__code-dot hero__code-dot--green"></div>
+            <span class="hero__code-filename">index.html</span>
+          </div>
+          <div class="hero__code-body">
+            <div><span class="code-comment">&lt;!-- your first webpage ✦ --&gt;</span></div>
+            <div><span class="code-tag">&lt;html&gt;</span></div>
+            <div class="code-indent"><span class="code-tag">&lt;head&gt;</span></div>
+            <div class="code-indent" style="padding-left:36px"><span class="code-tag">&lt;title&gt;</span><span
+                class="code-text">hello world</span><span class="code-tag">&lt;/title&gt;</span></div>
+            <div class="code-indent"><span class="code-tag">&lt;/head&gt;</span></div>
+            <div class="code-indent"><span class="code-tag">&lt;body&gt;</span></div>
+            <div class="code-indent" style="padding-left:36px"><span class="code-tag">&lt;h1&gt;</span><span
+                class="code-value">I built this</span><span class="code-tag">&lt;/h1&gt;</span></div>
+            <div class="code-indent" style="padding-left:36px"><span class="code-tag">&lt;p&gt;</span><span
+                class="code-text">made by me ✦</span><span class="code-tag">&lt;/p&gt;</span></div>
+            <div class="code-indent"><span class="code-tag">&lt;/body&gt;</span></div>
+            <div><span class="code-tag">&lt;/html&gt;</span></div>
+          </div>
+        </div>
+
+        <!-- Handwritten doodles -->
+        <div class="hero__handwritten hero__handwritten--1">start here →</div>
+        <div class="hero__handwritten hero__handwritten--2">you can build this ✦</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       WHAT YOU'LL LEARN
+       ============================================================ -->
+  <section class="learn" id="learn" aria-label="What you will learn">
+    <div class="learn__bg-deco" aria-hidden="true"></div>
+
+    <div class="learn__inner">
+      <div class="learn__header reveal">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-line" aria-hidden="true"></span>
+          The curriculum
+        </div>
+        <h2 class="learn__heading">What You'll<br /><em>Learn.</em></h2>
+        <p class="learn__subheading">Start with the basics. Build something real.</p>
+      </div>
+
+      <!-- Carousel wrapper -->
+      <div class="learn__carousel-wrapper">
+        <div class="learn__carousel" id="learn-carousel" role="region" aria-label="Learning topics carousel">
+          <div class="learn__cards" id="learn-cards">
+
+            <!-- Card 01: GitHub -->
+            <article class="learn__card reveal reveal-delay-1" aria-label="GitHub">
+              <span class="learn__card-sparkle" aria-hidden="true">✦</span>
+              <div class="learn__card-num">01</div>
+              <span class="learn__card-icon" aria-hidden="true">🐙</span>
+              <h3 class="learn__card-title">GitHub</h3>
+              <p class="learn__card-desc">Save. Share.<br />Collaborate.<br />Own your work.</p>
+              <div class="learn__card-footer">
+                <span class="learn__card-label">Basics</span>
+                <span class="learn__card-arrow" aria-hidden="true">→</span>
+              </div>
+            </article>
+
+            <!-- Card 02: VS Code -->
+            <article class="learn__card learn__card--ticket reveal reveal-delay-2" aria-label="VS Code">
+              <span class="learn__card-sparkle" aria-hidden="true">★</span>
+              <div class="learn__card-num">02</div>
+              <span class="learn__card-icon" aria-hidden="true">💻</span>
+              <h3 class="learn__card-title">VS Code</h3>
+              <p class="learn__card-desc">Your editor.<br />Where the magic<br />actually happens.</p>
+              <div class="learn__card-footer">
+                <span class="learn__card-label">Setup</span>
+                <span class="learn__card-arrow" aria-hidden="true">→</span>
+              </div>
+            </article>
+
+            <!-- Card 03: HTML -->
+            <article class="learn__card reveal reveal-delay-3" aria-label="HTML">
+              <span class="learn__card-sparkle" aria-hidden="true">✦</span>
+              <div class="learn__card-num">03</div>
+              <span class="learn__card-icon" aria-hidden="true">🏗️</span>
+              <h3 class="learn__card-title">HTML</h3>
+              <p class="learn__card-desc">The skeleton.<br />Structure your<br />first webpage.</p>
+              <div class="learn__card-footer">
+                <span class="learn__card-label">Structure</span>
+                <span class="learn__card-arrow" aria-hidden="true">→</span>
+              </div>
+            </article>
+
+            <!-- Card 04: CSS -->
+            <article class="learn__card learn__card--ticket reveal reveal-delay-4" aria-label="CSS">
+              <span class="learn__card-sparkle" aria-hidden="true">◆</span>
+              <div class="learn__card-num">04</div>
+              <span class="learn__card-icon" aria-hidden="true">🎨</span>
+              <h3 class="learn__card-title">CSS</h3>
+              <p class="learn__card-desc">The style layer.<br />Make it look<br />exactly right.</p>
+              <div class="learn__card-footer">
+                <span class="learn__card-label">Style</span>
+                <span class="learn__card-arrow" aria-hidden="true">→</span>
+              </div>
+            </article>
+
+            <!-- Card 05: JavaScript -->
+            <article class="learn__card reveal" aria-label="JavaScript">
+              <span class="learn__card-sparkle" aria-hidden="true">✦</span>
+              <div class="learn__card-num">05</div>
+              <span class="learn__card-icon" aria-hidden="true">⚡</span>
+              <h3 class="learn__card-title">JavaScript</h3>
+              <p class="learn__card-desc">Bring it alive.<br />Clicks. Moves.<br />Interactions.</p>
+              <div class="learn__card-footer">
+                <span class="learn__card-label">Logic</span>
+                <span class="learn__card-arrow" aria-hidden="true">→</span>
+              </div>
+            </article>
+
+            <!-- Card 06: Mini Project -->
+            <article class="learn__card" aria-label="Mini Project"
+              style="background: var(--navy); border-color: rgba(89,221,227,0.35);">
+              <span class="learn__card-sparkle" aria-hidden="true" style="color: var(--cyan); opacity:0.8;">★</span>
+              <div class="learn__card-num" style="color: var(--off-white);">06</div>
+              <span class="learn__card-icon" aria-hidden="true">🚀</span>
+              <h3 class="learn__card-title" style="color: var(--off-white);">Mini Project</h3>
+              <p class="learn__card-desc" style="color: rgba(248,247,242,0.65);">Ship something.<br />Show the
+                world<br />what you made.</p>
+              <div class="learn__card-footer" style="border-top-color: rgba(89,221,227,0.12);">
+                <span class="learn__card-label" style="color: var(--cyan); opacity:0.7;">Build It</span>
+                <span class="learn__card-arrow" style="color: var(--cyan);" aria-hidden="true">→</span>
+              </div>
+            </article>
+
+          </div><!-- /.learn__cards -->
+        </div><!-- /.learn__carousel -->
+
+        <!-- Controls -->
+        <div class="learn__controls">
+          <div class="learn__arrows">
+            <button class="learn__arrow" id="carousel-prev" aria-label="Previous cards" disabled>←</button>
+            <button class="learn__arrow" id="carousel-next" aria-label="Next cards">→</button>
+          </div>
+          <div class="learn__dots" id="carousel-dots" role="tablist" aria-label="Carousel position"></div>
+        </div>
+      </div><!-- /.learn__carousel-wrapper -->
+    </div><!-- /.learn__inner -->
+  </section>
+
+
+  <!-- ============================================================
+     EVENT JOURNEY — 16–18 OCTOBER 2026
+     ============================================================ -->
+  <section class="journey" id="journey" aria-label="Three-day event journey">
+    <div class="journey__bg" aria-hidden="true"></div>
+
+    <div class="journey__inner">
+
+      <!-- Section Header -->
+      <div class="journey__header reveal">
+        <div class="section-eyebrow" style="color: var(--cyan); justify-content: center;">
+          <span class="section-eyebrow-line" style="background: var(--cyan);" aria-hidden="true"></span>
+          Three days. One creative journey.
+          <span class="section-eyebrow-line" style="background: var(--cyan);" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="journey__heading">
+          Your Journey<br />
+          <span>Starts Here.</span>
+        </h2>
+
+        <p class="journey__date">
+          16 — 18 OCTOBER 2026
+        </p>
+      </div>
+
+      <div class="journey__timeline" role="list" aria-label="Three-day workshop schedule">
+
+        <!-- DAY 01: SETUP + GIT -->
+        <div class="journey__item" role="listitem">
+          <article class="journey__ticket reveal reveal-delay-1" aria-label="Day 1: VS Code, Terminal, Git and GitHub">
+
+            <div class="journey__ticket-hole journey__ticket-hole--top" aria-hidden="true"></div>
+
+            <div class="journey__ticket-stub" aria-hidden="true">
+              <span class="journey__ticket-num">01</span>
+            </div>
+
+            <div class="journey__ticket-body">
+              <div class="journey__ticket-step">
+                DAY ONE · 16 OCT
+              </div>
+
+              <h3 class="journey__ticket-title">
+                Set Up.<br />Take Control.
+              </h3>
+
+              <p class="journey__ticket-desc">
+                Set up your coding environment, get comfortable with
+                the terminal, and learn how Git tracks your work and
+                GitHub helps you share it. Your first step into the
+                world of development starts here.
+              </p>
+
+              <div class="journey__ticket-tags">
+                <span class="journey__ticket-tag">VS Code</span>
+                <span class="journey__ticket-tag">Terminal</span>
+                <span class="journey__ticket-tag">Git</span>
+                <span class="journey__ticket-tag">GitHub</span>
+              </div>
+            </div>
+
+            <div class="journey__ticket-hole journey__ticket-hole--bottom" aria-hidden="true"></div>
+          </article>
+        </div>
+
+        <!-- CONNECTOR -->
+        <div class="journey__connector" aria-hidden="true">
+          <div class="journey__connector-line"></div>
+          <div class="journey__connector-star">✦</div>
+          <div class="journey__connector-line"></div>
+        </div>
+
+        <!-- DAY 02: HTML + CSS -->
+        <div class="journey__item" role="listitem">
+          <article class="journey__ticket reveal reveal-delay-2" aria-label="Day 2: Advanced HTML and CSS">
+
+            <div class="journey__ticket-hole journey__ticket-hole--top" aria-hidden="true"></div>
+
+            <div class="journey__ticket-stub" aria-hidden="true">
+              <span class="journey__ticket-num">02</span>
+            </div>
+
+            <div class="journey__ticket-body">
+              <div class="journey__ticket-step">
+                DAY TWO · 17 OCT
+              </div>
+
+              <h3 class="journey__ticket-title">
+                Structure.<br />Style. Create.
+              </h3>
+
+              <p class="journey__ticket-desc">
+                Go beyond the basics with HTML and CSS. Structure
+                webpages, experiment with layouts, explore styling,
+                and turn your ideas into designs you can actually
+                see in your browser.
+              </p>
+
+              <div class="journey__ticket-tags">
+                <span class="journey__ticket-tag">HTML</span>
+                <span class="journey__ticket-tag">Advanced HTML</span>
+                <span class="journey__ticket-tag">CSS</span>
+                <span class="journey__ticket-tag">Layouts</span>
+              </div>
+            </div>
+
+            <div class="journey__ticket-hole journey__ticket-hole--bottom" aria-hidden="true"></div>
+          </article>
+        </div>
+
+        <!-- CONNECTOR -->
+        <div class="journey__connector" aria-hidden="true">
+          <div class="journey__connector-line"></div>
+          <div class="journey__connector-star">✦</div>
+          <div class="journey__connector-line"></div>
+        </div>
+
+        <!-- DAY 03: JAVASCRIPT -->
+        <div class="journey__item" role="listitem">
+          <article class="journey__ticket reveal reveal-delay-3" aria-label="Day 3: JavaScript">
+
+            <div class="journey__ticket-hole journey__ticket-hole--top" aria-hidden="true"></div>
+
+            <div class="journey__ticket-stub" aria-hidden="true">
+              <span class="journey__ticket-num">03</span>
+            </div>
+
+            <div class="journey__ticket-body">
+              <div class="journey__ticket-step">
+                DAY THREE · 18 OCT
+              </div>
+
+              <h3 class="journey__ticket-title">
+                Make It<br />Interactive.
+              </h3>
+
+              <p class="journey__ticket-desc">
+                Bring your webpages to life with JavaScript.
+                Explore variables, functions, events and DOM
+                manipulation, and discover how code turns a
+                static webpage into an interactive experience.
+              </p>
+
+              <div class="journey__ticket-tags">
+                <span class="journey__ticket-tag">JavaScript</span>
+                <span class="journey__ticket-tag">Functions</span>
+                <span class="journey__ticket-tag">DOM</span>
+                <span class="journey__ticket-tag">Events</span>
+              </div>
+            </div>
+
+            <div class="journey__ticket-hole journey__ticket-hole--bottom" aria-hidden="true"></div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ============================================================
+       COMMUNITY SECTION
+       ============================================================ -->
+  <section class="community" id="community" aria-label="Community section">
+    <div class="community__bg-circle" aria-hidden="true"></div>
+    <div class="community__inner">
+
+      <!-- Left: Text -->
+      <div class="community__content">
+        <div class="section-eyebrow reveal" style="color: var(--cyan-dim);">
+          <span class="section-eyebrow-line" aria-hidden="true"></span>
+          The vibe
+        </div>
+        <h2 class="community__heading reveal reveal-delay-1">
+          You Don't Need<br />To Know It All.
+        </h2>
+        <span class="community__heading-cyan reveal reveal-delay-2">Just Start.</span>
+        <p class="community__desc reveal reveal-delay-3">
+          Come curious. Ask questions. Make mistakes. Build things.
+          Meet girls who are figuring it out too — because the best
+          part of tech isn't the code. It's the people you build with.
+        </p>
+      </div>
+
+      <!-- Right: Annotation cards -->
+      <div class="community__annotations reveal reveal-delay-2" aria-label="Community notes">
+
+        <div class="community__annotation-card community__annotation-card--highlight">
+          <span class="community__annotation-sparkle" aria-hidden="true">✦</span>
+          <p class="community__annotation-text">"no gatekeeping ✦"</p>
+        </div>
+
+        <div class="community__annotation-card">
+          <span class="community__annotation-sparkle" aria-hidden="true">→</span>
+          <p class="community__annotation-text">"ask every question.<br />the silly ones too."</p>
+        </div>
+
+        <div class="community__annotation-card community__annotation-card--highlight">
+          <span class="community__annotation-sparkle" aria-hidden="true">★</span>
+          <p class="community__annotation-text">"build together."</p>
+        </div>
+
+        <div class="community__annotation-card">
+          <span class="community__annotation-sparkle" aria-hidden="true">♡</span>
+          <p class="community__annotation-text">"same girls,<br />bigger ideas ♡"</p>
+        </div>
+
+      </div>
+
+    </div><!-- /.community__inner -->
+  </section>
+
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="contact" id="contact" aria-label="Contact information">
+    <div class="contact__inner">
+      <div class="contact__header reveal">
+        <div class="section-eyebrow" style="color: var(--cyan-dim);">
+          <span class="section-eyebrow-line" aria-hidden="true"></span>
+          Get in touch
+        </div>
+        <h2 class="contact__heading">Questions?<br />Let's Talk.</h2>
+      </div>
+
+      <div class="contact__cards">
+
+        <!-- Contact 1 -->
+        <article class="contact__card reveal reveal-delay-1" aria-label="Contact: Nandini">
+          <div class="contact__card-num">01 /</div>
+          <h3 class="contact__card-name">Nandini</h3>
+          <div class="contact__card-detail">
+            <span class="contact__card-detail-icon" aria-hidden="true">☏</span>
+            <span>+91 77966 80703 </span>
+          </div>
+        </article>
+
+        <!-- Contact 2 -->
+        <article class="contact__card reveal reveal-delay-2" aria-label="Contact: Neha">
+          <div class="contact__card-num">02 /</div>
+          <h3 class="contact__card-name">Neha</h3>
+          <div class="contact__card-detail">
+            <span class="contact__card-detail-icon" aria-hidden="true">☏</span>
+            <span>+91 97023 26234</span>
+          </div>
+        </article>
+
+      </div><!-- /.contact__cards -->
+    </div><!-- /.contact__inner -->
+  </section>
+
+
+  <!-- ============================================================
+       FINAL CTA
+       ============================================================ -->
+  <section class="cta" id="register" aria-label="Registration call to action">
+    <div class="cta__bg-shapes" aria-hidden="true">
+      <div class="cta__bg-dots"></div>
+      <div class="cta__bg-circle-1"></div>
+      <div class="cta__bg-circle-2"></div>
+    </div>
+
+    <div class="cta__inner">
+      <div class="cta__small reveal">SNDT ACM -W STUDENT CHAPTER </div>
+
+      <h2 class="cta__heading reveal reveal-delay-1">
+        Ready To
+        <span class="cta__heading-accent">Build?</span>
+      </h2>
+
+      <p class="cta__subtext reveal reveal-delay-2">
+        Your first step into tech can start here.
+      </p>
+
+      <button class="cta__btn" id="register-btn" aria-label="Register now — opens registration form">
+        Register Now
+        <span class="cta__btn-arrow" aria-hidden="true">→</span>
+      </button>
+
+      <p class="cta__disclaimer reveal reveal-delay-3">
+        First Year · Beginner Friendly · All Girls · No Prior Experience Needed
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <p class="footer__left">
+        © 2026 ACM-W SNDT UMIT Student Chapter · Code Ignite
+      </p>
+      <p class="footer__right">Made with ✦ by girls, for girls</p>
+    </div>
+  </footer>
+
+
+  <script src="script.js"></script>
+  <script src="intro-puzzle.js"></script>
+</body>
+
+</html>

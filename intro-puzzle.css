@@ -1,0 +1,854 @@
+/* =========================================================
+   CODE IGNITE — ACM-W × SNDT UMIT
+   Puzzle Intro
+   Safe to load after style.css
+   ========================================================= */
+
+#intro,
+#replay {
+  --i-navy: #0D2B4A;
+  --i-navy2: #14375C;
+  --i-cyan: #55DCE2;
+  --i-ice: #CFEFF5;
+  --i-paper: #F6F2EA;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.intro-seen #intro {
+  display: none;
+}
+
+#intro {
+  --k: 1;
+
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  overflow: hidden;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      var(--i-navy) 55%,
+      #0A2340
+    );
+
+  box-shadow:
+    inset 0 0 160px rgba(85, 220, 226, 0.2);
+
+  transition:
+    opacity 0.9s ease;
+}
+
+#intro.out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CURSOR GLOW
+   ========================================================= */
+
+#cur {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  width: 420px;
+  height: 420px;
+
+  margin:
+    -210px
+    0
+    0
+    -210px;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(85, 220, 226, 0.16),
+      transparent 65%
+    );
+
+  transform:
+    translate(
+      var(--cx, 50vw),
+      var(--cy, 50vh)
+    );
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   CENTRAL GLOW
+   ========================================================= */
+
+#glow {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 46vmin;
+  height: 46vmin;
+
+  margin:
+    -23vmin
+    0
+    0
+    -23vmin;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(85, 220, 226, 0.6),
+      transparent 65%
+    );
+
+  opacity: 0;
+
+  transform: scale(0.4);
+
+  transition:
+    opacity 0.8s ease,
+    transform 1.2s ease;
+
+  z-index: 1;
+}
+
+.assembling #glow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.flash #glow {
+  transform: scale(2.4);
+}
+
+.expand #glow {
+  transform: scale(9);
+  transition-duration: 1.4s;
+}
+
+
+/* =========================================================
+   FLOATING PUZZLE PIECES
+   ========================================================= */
+
+.p {
+  position: absolute;
+
+  z-index: 2;
+
+  font:
+    700
+    calc(var(--fs) * var(--k))
+    'Space Mono',
+    monospace;
+
+  opacity: 0;
+
+  filter:
+    drop-shadow(
+      0 6px 10px rgba(0, 0, 0, 0.35)
+    );
+
+  /*
+   * All movement is handled through one transform.
+   * This keeps JavaScript cursor movement,
+   * rotation and scaling predictable.
+   */
+
+  transform:
+    translate(
+      calc(-50% + var(--dx, 0px)),
+      calc(-50% + var(--dy, 0px))
+    )
+    rotate(
+      calc(
+        var(--r, 0deg) +
+        var(--mr, 0deg)
+      )
+    )
+    scale(
+      var(--s, 1)
+    );
+
+  transition:
+    left 0.95s cubic-bezier(0.34, 1.45, 0.5, 1),
+    top 0.95s cubic-bezier(0.34, 1.45, 0.5, 1),
+    transform 0.95s cubic-bezier(0.34, 1.45, 0.5, 1),
+    opacity 0.6s ease;
+}
+
+.p.on {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   PIECE SNAP EFFECT
+   ========================================================= */
+
+.p.snap {
+  animation:
+    snap 0.55s ease-out;
+}
+
+@keyframes snap {
+
+  0% {
+    filter:
+      drop-shadow(
+        0 0 16px var(--i-cyan)
+      )
+      brightness(1.5);
+
+    transform:
+      translate(
+        calc(-50% + var(--dx, 0px)),
+        calc(-50% + var(--dy, 0px))
+      )
+      rotate(
+        calc(
+          var(--r, 0deg) +
+          var(--mr, 0deg)
+        )
+      )
+      scale(1.12);
+  }
+
+  60% {
+    filter:
+      drop-shadow(
+        0 0 10px var(--i-cyan)
+      )
+      brightness(1.15);
+  }
+
+  100% {
+    filter:
+      drop-shadow(
+        0 6px 10px rgba(0, 0, 0, 0.35)
+      );
+
+    transform:
+      translate(
+        calc(-50% + var(--dx, 0px)),
+        calc(-50% + var(--dy, 0px))
+      )
+      rotate(
+        calc(
+          var(--r, 0deg) +
+          var(--mr, 0deg)
+        )
+      )
+      scale(
+        var(--s, 1)
+      );
+  }
+}
+
+
+/* =========================================================
+   INNER PIECE
+   ========================================================= */
+
+.p .in {
+  display: block;
+
+  padding:
+    0.55em
+    0.95em;
+
+  white-space: nowrap;
+
+  animation:
+    drift
+    var(--t, 7s)
+    ease-in-out
+    var(--w, 0s)
+    infinite alternate;
+}
+
+.assembling .p .in {
+  animation-play-state: paused;
+}
+
+@keyframes drift {
+
+  to {
+    transform:
+      translate(6px, -10px)
+      rotate(1.5deg);
+  }
+}
+
+
+/* =========================================================
+   PAPER PIECE
+   ========================================================= */
+
+.paper .in {
+  background: var(--i-paper);
+
+  color: var(--i-navy);
+
+  clip-path:
+    polygon(
+      0 5%,
+      7% 0,
+      32% 4%,
+      58% 0,
+      82% 3%,
+      100% 0,
+      98% 46%,
+      100% 100%,
+      70% 95%,
+      42% 100%,
+      12% 96%,
+      0 100%,
+      2% 52%
+    );
+}
+
+
+/* =========================================================
+   CYAN TAG
+   ========================================================= */
+
+.tag .in {
+  background: var(--i-cyan);
+
+  color: var(--i-navy);
+
+  border-radius:
+    6px
+    18px
+    6px
+    18px;
+}
+
+
+/* =========================================================
+   CODE PIECE
+   ========================================================= */
+
+.code .in {
+  background: var(--i-navy2);
+
+  color: var(--i-cyan);
+
+  border:
+    1.5px solid
+    var(--i-cyan);
+
+  border-radius: 8px;
+}
+
+
+/* =========================================================
+   TICKET PIECE
+   ========================================================= */
+
+.ticket .in {
+  background: var(--i-ice);
+
+  color: var(--i-navy);
+
+  border-radius: 6px;
+
+  -webkit-mask:
+    radial-gradient(
+      circle 0.5em at 0 50%,
+      #0000 96%,
+      #000
+    )
+    0 0 / 51% 100% no-repeat,
+
+    radial-gradient(
+      circle 0.5em at 100% 50%,
+      #0000 96%,
+      #000
+    )
+    100% 0 / 51% 100% no-repeat;
+
+  mask:
+    radial-gradient(
+      circle 0.5em at 0 50%,
+      #0000 96%,
+      #000
+    )
+    0 0 / 51% 100% no-repeat,
+
+    radial-gradient(
+      circle 0.5em at 100% 50%,
+      #0000 96%,
+      #000
+    )
+    100% 0 / 51% 100% no-repeat;
+}
+
+
+/* =========================================================
+   STICKER PIECE
+   ========================================================= */
+
+.sticker .in {
+  background: var(--i-ice);
+
+  color: var(--i-navy);
+
+  border:
+    3px dashed
+    var(--i-navy);
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 0 0 3px var(--i-cyan);
+}
+
+
+/* =========================================================
+   PIECES COLLAPSE
+   ========================================================= */
+
+.collapse .p {
+  opacity: 0;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.15);
+
+  transition:
+    transform 0.5s ease-in,
+    opacity 0.5s ease,
+    left 0.5s ease,
+    top 0.5s ease;
+}
+
+
+/* =========================================================
+   CENTER MESSAGE
+   ========================================================= */
+
+#pitch {
+  position: relative;
+
+  z-index: 3;
+
+  text-align: center;
+
+  padding: 0 20px;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+#pitch h1 {
+  margin: 0;
+
+  font:
+    800
+    clamp(2rem, 7vw, 4.8rem) / 0.95
+    'Bricolage Grotesque',
+    system-ui,
+    sans-serif;
+
+  letter-spacing: -0.03em;
+
+  color: var(--i-paper);
+}
+
+#pitch h1 em {
+  font-style: normal;
+  color: var(--i-cyan);
+}
+
+#pitch p {
+  margin:
+    1.1rem
+    0
+    1.6rem;
+
+  font:
+    700
+    clamp(0.85rem, 2.6vw, 1rem)
+    'Space Mono',
+    monospace;
+
+  color: var(--i-ice);
+
+  letter-spacing: 0.1em;
+}
+
+
+/* =========================================================
+   IGNITE BUTTON
+   ========================================================= */
+
+#ignite {
+  min-height: 56px;
+
+  padding:
+    14px
+    34px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: var(--i-cyan);
+
+  color: var(--i-navy);
+
+  font:
+    800
+    1.15rem
+    'Bricolage Grotesque',
+    system-ui,
+    sans-serif;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+#ignite:hover {
+  transform:
+    scale(1.05)
+    rotate(-1deg);
+
+  box-shadow:
+    0 0 30px
+    rgba(85, 220, 226, 0.5);
+}
+
+#ignite:active {
+  transform:
+    scale(0.98);
+}
+
+#ignite:focus-visible,
+#replay:focus-visible {
+  outline:
+    3px solid
+    #FFFFFF;
+
+  outline-offset: 4px;
+}
+
+
+/* Hide center message while assembling */
+
+.assembling #pitch {
+  opacity: 0;
+
+  transform: scale(0.96);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   FINAL CODE IGNITE TITLE
+   ========================================================= */
+
+#title {
+  position: absolute;
+
+  z-index: 4;
+
+  text-align: center;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform: scale(1);
+
+  transition:
+    transform 1.3s ease-in,
+    opacity 0.9s ease;
+}
+
+.title #title {
+  visibility: visible;
+  opacity: 1;
+}
+
+.expand #title {
+  transform: scale(1.25);
+}
+
+
+/* Main title */
+
+#title b {
+  display: block;
+
+  font:
+    800
+    clamp(4.5rem, 21vw, 11.5rem) / 0.85
+    'Bricolage Grotesque',
+    system-ui,
+    sans-serif;
+
+  letter-spacing: -0.035em;
+
+  color: var(--i-paper);
+
+  opacity: 0;
+
+  transform: scale(0.8);
+}
+
+
+/* IGNITE */
+
+#title b + b {
+  color: var(--i-cyan);
+}
+
+
+/* Subtitle */
+
+#title p {
+  margin:
+    1.1rem
+    0
+    0;
+
+  color: var(--i-ice);
+
+  font:
+    700
+    1rem
+    'Space Mono',
+    monospace;
+
+  letter-spacing: 0.12em;
+
+  opacity: 0;
+}
+
+
+/* Title entrance */
+
+.title #title b,
+.title #title p {
+  animation:
+    pop
+    0.6s
+    cubic-bezier(0.34, 1.5, 0.5, 1)
+    forwards;
+}
+
+.title #title b + b {
+  animation-delay: 0.15s;
+}
+
+.title #title p {
+  animation-delay: 0.4s;
+}
+
+@keyframes pop {
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   DECORATIVE STARS
+   ========================================================= */
+
+.star {
+  position: absolute;
+
+  color: var(--i-cyan);
+
+  animation:
+    tw
+    1.6s
+    ease-in-out
+    infinite;
+}
+
+@keyframes tw {
+
+  50% {
+    opacity: 0.35;
+
+    transform:
+      scale(0.7)
+      rotate(20deg);
+  }
+}
+
+
+/* =========================================================
+   REPLAY BUTTON
+   ========================================================= */
+
+#replay {
+  position: fixed;
+
+  left: 12px;
+  bottom: 12px;
+
+  z-index: 10000;
+
+  padding:
+    7px
+    12px;
+
+  border-radius: 8px;
+
+  border:
+    1px dashed
+    var(--i-navy);
+
+  background: #FFFFFF;
+
+  color: var(--i-navy);
+
+  font:
+    12px
+    'Space Mono',
+    monospace;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  #intro {
+    --k: 0.68;
+  }
+
+  #pitch {
+    width: 100%;
+  }
+
+  #pitch h1 {
+    font-size:
+      clamp(
+        2rem,
+        10vw,
+        3.2rem
+      );
+  }
+
+  #pitch p {
+    font-size: 0.72rem;
+
+    letter-spacing: 0.06em;
+  }
+
+  #ignite {
+    min-height: 52px;
+
+    padding:
+      13px
+      28px;
+
+    font-size: 1rem;
+  }
+
+  #title b {
+    font-size:
+      clamp(
+        4rem,
+        24vw,
+        7rem
+      );
+  }
+
+  #title p {
+    font-size: 0.75rem;
+
+    letter-spacing: 0.08em;
+  }
+
+  #replay {
+    left: 10px;
+    bottom: 10px;
+
+    font-size: 10px;
+  }
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+   ========================================================= */
+
+@media (pointer: coarse) {
+
+  #cur {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .p .in {
+    animation: none;
+  }
+
+  .star {
+    animation: none;
+  }
+
+  .title #title b,
+  .title #title p {
+    animation-duration: 0.01s;
+  }
+
+  #intro,
+  #glow,
+  #pitch,
+  #title {
+    transition-duration: 0.01s;
+  }
+}
