@@ -1684,7 +1684,7 @@ button {
   }
 
   .hero__illustration {
-    height: 340px;
+    height: 360px;
     order: -1;
   }
 
@@ -1695,6 +1695,22 @@ button {
     left: 50%;
     transform: translateX(-50%);
     animation: none;
+  }
+
+  .hero__doodle--browser {
+    width: 165px;
+    left: 10px;
+    bottom: 45px;
+  }
+
+  .hero__handwritten--1 {
+    left: 15px;
+    bottom: 12px;
+  }
+
+  .hero__handwritten--2 {
+    left: 15px;
+    top: 145px;
   }
 
   .hero__headline {
@@ -1755,16 +1771,87 @@ button {
   }
 
   .hero__illustration {
-    height: 260px;
+    height: 370px;
   }
 
   .hero__code-window {
+    top: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
     max-width: 290px;
     font-size: 11px;
   }
 
   .hero__doodle--browser {
     display: none;
+  }
+
+  .hero__github-badge {
+    top: 4px;
+    right: 12px;
+    padding: 5px 12px;
+  }
+
+  .hero__github-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hero__github-label {
+    font-size: 10px;
+  }
+
+  .hero__floating-tag {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+
+  .hero__floating-tag--html {
+    top: 6px;
+    left: 12px;
+  }
+
+  .hero__floating-tag--css {
+    top: 6px;
+    left: 78px;
+  }
+
+  .hero__floating-tag--js {
+    top: 6px;
+    left: 138px;
+  }
+
+  .hero__star-1 {
+    top: 8px;
+    left: 196px;
+    font-size: 12px;
+    opacity: 0.5;
+  }
+
+  .hero__star-2 {
+    display: none;
+  }
+
+  .hero__handwritten {
+    font-size: 12px;
+    opacity: 0.85;
+  }
+
+  .hero__handwritten--1 {
+    top: auto;
+    bottom: 12px;
+    left: 16px;
+    right: auto;
+    transform: rotate(-3deg);
+  }
+
+  .hero__handwritten--2 {
+    top: auto;
+    bottom: 12px;
+    left: auto;
+    right: 16px;
+    transform: rotate(2deg);
   }
 
   .learn {
@@ -1826,6 +1913,25 @@ button {
     flex-direction: column;
     text-align: center;
     padding: 0 20px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE (<= 360px)
+   ============================================================ */
+
+@media (max-width: 360px) {
+  .hero__floating-tag--js {
+    display: none;
+  }
+
+  .hero__handwritten--2 {
+    display: none;
+  }
+
+  .hero__handwritten--1 {
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
   }
 }
 
